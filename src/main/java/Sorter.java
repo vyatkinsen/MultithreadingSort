@@ -1,15 +1,10 @@
 public class Sorter extends Thread {
-    private final int[] sortableArr;
+    private final int[] arrayToSort;
 
-    public Sorter(int[] sortableArr) {
-        this.sortableArr = sortableArr;
+    public Sorter(int[] arrayToSort) {
+        this.arrayToSort = arrayToSort;
     }
-
-    @Override
-    public void run() {
-        sort(sortableArr, 0, sortableArr.length);
-    }
-
+    
     private static void sort(int[] in, int left, int right) {
         if (left >= right - 1) return; // Если в массиве только один элемент, значит что он уже отсортирован
         int i = partition(in, left, right);
@@ -39,7 +34,12 @@ public class Sorter extends Thread {
         in[right] = tmp;
     }
 
-    public int[] getSortableArr() {
-        return sortableArr;
+    public int[] getArrayToSort() {
+        return arrayToSort;
+    }
+
+    @Override
+    public void run() {
+        sort(arrayToSort, 0, arrayToSort.length);
     }
 }
