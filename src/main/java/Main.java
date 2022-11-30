@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        int[] sizesOfArrays = {1000, 100_000, 1000_000, 10_000_000, 100_000_000};
+        int[] sizesOfArrays = {1000, 100_000, 1000_000, 10_000_000};
         for (int size: sizesOfArrays) {
             int[] arrayOfRandomNumbers = new int[size];
             Random random = new Random();
@@ -25,18 +25,18 @@ public class Main {
                 " elements with " + 1 + " thread is " + (double) sortingTime / 1000);
     }
 
-    public static void multiThreadSorting(int[] inputArray) throws InterruptedException {
+    public static int[] multiThreadSorting(int[] inputArray) throws InterruptedException {
         int sizeOfArray = inputArray.length;
-        int[] arrayToSort = inputArray.clone();
+        int[] arrayToSort = inputArray;
         long startOfSortingTime;
-
+        int[] lastSubArr = new int[0];
         for (int threadPoolSize = 2; threadPoolSize <= 16; threadPoolSize *= 2) {
             startOfSortingTime = System.currentTimeMillis(); // Начало отсчёта времени
 
             // Этап "Разделения"
             int subSize = sizeOfArray / threadPoolSize;
             int[][] subArrays = new int[threadPoolSize - 1][subSize];
-            int[] lastSubArr = new int[sizeOfArray - (threadPoolSize - 1) * subSize];
+            lastSubArr = new int[sizeOfArray - (threadPoolSize - 1) * subSize];
             Sorter[] threads = new Sorter[threadPoolSize];
 
             // Этап "Сортировки"
@@ -50,7 +50,6 @@ public class Main {
             threads[threadPoolSize - 1].start();
 
             for (int i = 0; i < threadPoolSize; i++) threads[i].join();
-
 
             for (int i = 0; i < threadPoolSize - 1; i++) {
                 System.arraycopy(threads[i].getArrayToSort(), 0, subArrays[i], 0, subSize);
@@ -97,6 +96,6 @@ public class Main {
             System.out.println("Sorting time for " + sizeOfArray +
                     " elements with " + threadPoolSize + " threads is " + (double) sortingTime / 1000);
         }
-
+    return  lastSubArr;
     }
 }

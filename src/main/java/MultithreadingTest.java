@@ -8,8 +8,7 @@ public class MultithreadingTest {
         Random random = new Random();
         for (int i = 0; i < countOfElements; i++) arrayToSort[i] = random.nextInt(10);
         System.out.println("Массив до сортировки: " + Arrays.toString(arrayToSort));
-        Main.multiThreadSorting(arrayToSort);
-        System.out.println("Массив после сортировки: " + Arrays.toString(arrayToSort));
+        System.out.println("Массив после сортировки: " + Arrays.toString(Main.multiThreadSorting(arrayToSort)));
         System.out.println("\n");
     }
 }
