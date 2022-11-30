@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class MultithreadingTest {
+public class MultiThreadSortingTest {
     public static void main(String[] args) throws InterruptedException {
         int countOfElements = 10;
         int[] arrayToSort = new int[countOfElements];

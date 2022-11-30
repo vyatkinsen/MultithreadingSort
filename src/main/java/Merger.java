@@ -20,8 +20,10 @@ public class Merger extends Thread {
         int rightArrayPntr = 0;
         int resPntr = 0;
         while (leftArrayPntr < first.length && rightArrayPntr < second.length) {
+//            res[resPntr++] = first[leftArrayPntr] <= second[rightArrayPntr] ? first[leftArrayPntr++] : second[rightArrayPntr++];
             // Сравниваем элементы из двух подмассивов и помещаем в результирующий массив меньший из них
-            res[resPntr++] = first[leftArrayPntr] <= second[rightArrayPntr] ? first[leftArrayPntr++] : second[rightArrayPntr++];
+            if (first[leftArrayPntr] <= second[rightArrayPntr]) res[resPntr++] = first[leftArrayPntr++];
+            else res[resPntr++] = second[rightArrayPntr++];
         }
         if (leftArrayPntr == first.length) while (rightArrayPntr < second.length) res[resPntr++] = second[rightArrayPntr++];
         else if (rightArrayPntr == second.length) while (leftArrayPntr < first.length) res[resPntr++] = first[leftArrayPntr++];
